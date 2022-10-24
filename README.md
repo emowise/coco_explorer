@@ -1,16 +1,24 @@
 # cat_coco_explorer
 
-A new Flutter project.
+1. Packages:
+   1.1 State Management: Bloc,Provider 1.2 Api calls: http 1.3 Dependency Injection: get_it 1.4
+   Comparing object for bloc pattern :  equatable 1.5 For logs: Logger
 
-## Getting Started
+2. I used clean Architecture with Bloc and Provider
+3. I used some SOLID principles
 
-This project is a starting point for a Flutter application.
+4. How it works? Type category names by putting coma between each name. The app will search by
+   converting string to list
 
-A few resources to get you started if this is your first Flutter project:
+5. I was working this weekend from 10 am to 4 pm (Monday 8 am to 5 pm) for urgent task from Huawei
+   which is my current company. That is why I could not spend so much time for the task. End of the
+   monday was the last day of this task to finish. Because of reasons I mentioned, I did not have
+   time for writing task, and did not any time for refactor project(moving classes, methods).
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+6. For some images , canvas draws perfectly. But there are some bugs for creating canvas paint. Some
+   images scale is not correct. I use same scale for all images by getting real size of the image
+   from http. But the points come from http could be incorrect (Its a possibility). The bugs on some
+   canvas images could be solved in short time. The solution is to check scale again and to test it.
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+7. I do not have Mac. I tried to change target iOS 14.0 or greater but i can be wrong. 
+
