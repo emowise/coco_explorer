@@ -29,8 +29,6 @@ class _HomeScreenState extends State<HomeScreen> {
   void didChangeDependencies() {
     // TODO: implement didChangeDependencies
     super.didChangeDependencies();
-    categoryProvider = Provider.of<CategoriesProvider>(context);
-    subCategories = categoryProvider.subCategoriesMap;
   }
 
   @override
@@ -48,107 +46,113 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<HomeBloc, HomeState>(listener: (context,state){
-      if(state is HomeErrorState){
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("An Error occurred. Please try again")));
-
-      }
-    },
-    child: Scaffold(
-        appBar: AppBar(automaticallyImplyLeading: false,title: Text("Coco Explorer"),),
-        body: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            children: [
-              CustomSearchBar(
-                onClick: (List<int> categoryIds) {
-                  context
-                      .read<HomeBloc>()
-                      .add(HomeGetImageIdsEvent(categoryIds));
-                  _queryLayers = QueryLayers([], [], [], [], []);
-                },
-                categories: subCategories,
-                controller: TextEditingController(),
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              Expanded(
-                child: BlocBuilder<HomeBloc, HomeState>(
-                  builder: (context, state) {
-                    if (state is HomeInitial) {
-                      return Center(
-                        child: Text("Please search by category"),
-                      );
-                    }
-                    if (state is HomeProgressState) {
-                      return Center(
-                        child: CircularProgressIndicator(),
-                      );
-                    }
-                    if (state is HomeQueryLayersState) {
-                      _queryLayers =
-                          _queryLayers.fromOldList(state.queryLayers);
-                    }
-
-                    if(state is HomeErrorState){
-                      return Center(
-                        child: Text("An error occurred"),
-                      );
-                    }
-
-                    return ListView.separated(
-                        separatorBuilder: (context, index) {
-                          return SizedBox(
-                            height: 15,
-                          );
-                        },
-                        controller: _listScrollController,
-                        shrinkWrap: true,
-                        itemCount: _queryLayers.imageIds.length + 1,
-                        itemBuilder: (context, index) {
-                          if (index < _queryLayers.imageIds.length) {
-                            CocoImageItemEntity cocoImageItem = _queryLayers
-                                .groupByImageId()
-                                .values
-                                .elementAt(index);
-
-                            List<int> categoryIds = Utils.categoryIds(
-                                cocoImageItem.segmentationList);
-                            List<CategoryImageEntity> _categoryImages =
-                            Utils.filterCategoryImageList(
-                                categoryProvider.categoryImageList,
-                                categoryIds);
-
-                            double imageScaleFactor = Utils.imageScaleFactor(
-                                cocoImageItem.cocoImageSize,
-                                context.imageWidth(32));
-                            return CocoListItem(
-                              segmentationList: cocoImageItem.segmentationList,
-                              cocoImageItem: cocoImageItem,
-                              categoryImageList: _categoryImages,
-                              onCaptionClick: (selected) {
-                                showDialog(
-                                    context: context,
-                                    builder: (_c) => InfoDialog(
-                                      captionList:
-                                      cocoImageItem.captionList,
-                                    ));
-                              },
-                              imageScaleFactor: imageScaleFactor,
-                            );
-                          } else {
-                            return Padding(
-                              padding: EdgeInsets.symmetric(vertical: 32),
-                              child: Center(child: CircularProgressIndicator()),
-                            );
-                          }
-                        });
-                  },
-                ),
-              )
-            ],
+    categoryProvider = Provider.of<CategoriesProvider>(context);
+    subCategories = categoryProvider.subCategoriesMap;
+    return BlocListener<HomeBloc, HomeState>(
+      listener: (context, state) {
+        if (state is HomeErrorState) {
+          ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: Text("An Error occurred. Please try again")));
+        }
+      },
+      child: Scaffold(
+          appBar: AppBar(
+            automaticallyImplyLeading: false,
+            title: Text("Coco Explorer"),
           ),
-        )),);
+          body: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              children: [
+                CustomSearchBar(
+                  onClick: (List<int> categoryIds) {
+                    context
+                        .read<HomeBloc>()
+                        .add(HomeGetImageIdsEvent(categoryIds));
+                    _queryLayers = QueryLayers([], [], [], [], []);
+                  },
+                  categories: subCategories,
+                  controller: TextEditingController(),
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                Expanded(
+                  child: BlocBuilder<HomeBloc, HomeState>(
+                    builder: (context, state) {
+                      if (state is HomeInitial) {
+                        return Center(
+                          child: Text("Please search by category"),
+                        );
+                      }
+                      if (state is HomeProgressState) {
+                        return Center(
+                          child: CircularProgressIndicator(),
+                        );
+                      }
+                      if (state is HomeQueryLayersState) {
+                        _queryLayers =
+                            _queryLayers.fromOldList(state.queryLayers);
+                      }
+
+                      if(state is HomeErrorState){
+                        return Center(
+                          child: Text("An error occurred"),
+                        );
+                      }
+
+                      return ListView.separated(
+                          separatorBuilder: (context, index) {
+                            return SizedBox(
+                              height: 15,
+                            );
+                          },
+                          controller: _listScrollController,
+                          shrinkWrap: true,
+                          itemCount: _queryLayers.imageIds.length + 1,
+                          itemBuilder: (context, index) {
+                            if (index < _queryLayers.imageIds.length) {
+                              CocoImageItemEntity cocoImageItem = _queryLayers
+                                  .groupByImageId()
+                                  .values
+                                  .elementAt(index);
+
+                              List<int> categoryIds = Utils.categoryIds(
+                                  cocoImageItem.segmentationList);
+                              List<CategoryImageEntity> _categoryImages =
+                              Utils.filterCategoryImageList(
+                                  categoryProvider.categoryImageList,
+                                  categoryIds);
+
+                              double imageScaleFactor = Utils.imageScaleFactor(
+                                  cocoImageItem.cocoImageSize,
+                                  context.imageWidth(32));
+                              return CocoListItem(
+                                segmentationList: cocoImageItem.segmentationList,
+                                cocoImageItem: cocoImageItem,
+                                categoryImageList: _categoryImages,
+                                onCaptionClick: (selected) {
+                                  showDialog(
+                                      context: context,
+                                      builder: (_c) => InfoDialog(
+                                        captionList:
+                                        cocoImageItem.captionList,
+                                      ));
+                                },
+                                imageScaleFactor: imageScaleFactor,
+                              );
+                            } else {
+                              return Padding(
+                                padding: EdgeInsets.symmetric(vertical: 32),
+                                child: Center(child: CircularProgressIndicator()),
+                              );
+                            }
+                          });
+                    },
+                  ),
+                )
+              ],
+            ),
+          )),);
   }
 }
