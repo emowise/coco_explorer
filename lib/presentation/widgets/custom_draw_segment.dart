@@ -44,13 +44,11 @@ class _CustomDrawSegmentState extends State<CustomDrawSegment> {
   Widget build(BuildContext context) {
 
     return CustomPaint(
-      child: Expanded(
-        child: Image.network(
-          widget.cocoImageItem.cocoImage.cocoUrl,
-          fit: BoxFit.fill,
-          width: context.imageWidth(32),
-          scale: widget.imageScaleFactor,
-        ),
+      child: Image.network(
+        widget.cocoImageItem.cocoImage.cocoUrl,
+        fit: BoxFit.fill,
+        width: context.imageWidth(32),
+        scale: widget.imageScaleFactor,
       ),
       foregroundPainter: _CustomDraw(_offsetList),
     );
