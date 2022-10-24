@@ -1,0 +1,33 @@
+name: cat_coco_explorer
+description: A new Flutter project.
+
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.17.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  http: ^0.13.5
+  provider: ^6.0.4
+  get_it: ^7.2.0
+  equatable: ^2.0.5
+  flutter_bloc: ^8.1.1
+  image_downloader: ^0.31.0
+  cupertino_icons: ^1.0.2
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  mockito: ^5.3.2
+  logger: ^1.1.0
+  flutter_lints: ^2.0.1
+
+flutter:
+
+  uses-material-design: true
+  assets:
+    - assets/categories/
