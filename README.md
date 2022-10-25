@@ -13,12 +13,12 @@
 5. I was working this weekend from 10 am to 4 pm (Monday 8 am to 5 pm) for urgent task from Huawei
    which is my current company. That is why I could not spend so much time for the task. End of the
    monday was the last day of this task to finish. Because of reasons I mentioned, I did not have
-   time for writing task, and did not any time for refactor project(moving classes, methods).
+   time for writing test, and did not any time for refactor project(moving classes, methods).
 
 6. For some images , canvas draws perfectly. But there are some bugs for creating canvas paint. Some
    images scale is not correct. I use same scale for all images by getting real size of the image
    from http. But the points come from http could be incorrect (Its a possibility). The bugs on some
    canvas images could be solved in short time. The solution is to check scale again and to test it.
 
-7. I do not have Mac. I tried to change target iOS 14.0 or greater but i can be wrong. 
+7. I do not have Mac. I tried to change target iOS 14.0 or greater but it can be wrong. 
 
