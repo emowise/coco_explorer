@@ -18,7 +18,7 @@
 6. For some images , canvas draws perfectly. But there are some bugs for creating canvas paint. Some
    images scale is not correct. I use same scale for all images by getting real size of the image
    from http. But the points come from http could be incorrect (Its a possibility). The bugs on some
-   canvas images could be solved in short time. The solution is to check scale again and to test it.
+   canvas images could be solved in short time. The solution is to check scale again and to test it.I didnt have time for fixing canvas bugs but it is easy to fix
 
 7. I do not have Mac. I tried to change target iOS 14.0 or greater but it can be wrong. 
 
